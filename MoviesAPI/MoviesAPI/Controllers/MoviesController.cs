@@ -21,13 +21,13 @@ namespace MoviesAPI.Controllers
 {
     [ApiController]
     [Route("api/movies")]
-    public class MoviesController : ControllerBase
+    public class MoviesController : CustomBaseController
     {
         private readonly ApplicationDBContext _context;
         private readonly IMapper _mapper;
         private readonly IFileStorageService _fileStorageService;
 
-        public MoviesController(ApplicationDBContext context, IMapper mapper, IFileStorageService fileStorageService)
+        public MoviesController(ApplicationDBContext context, IMapper mapper, IFileStorageService fileStorageService) : base(context, mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -40,7 +40,7 @@ namespace MoviesAPI.Controllers
         /// <param name="moviesFilterDTO"></param>
         /// <returns></returns>
         [HttpGet(Name = "GetMovies")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         public async Task<ActionResult<List<MovieDTO>>> Get([FromQuery] MoviesFilterDTO moviesFilterDTO)
         {
             var queryable = _context.Movies.AsQueryable();
@@ -80,11 +80,14 @@ namespace MoviesAPI.Controllers
                 }
             }
 
-            await HttpContext.InsertPaginationParametersInResponse(queryable, moviesFilterDTO.RecordsPerPage, moviesFilterDTO.Page);
-
-
-            var movies = await queryable.Paginate(moviesFilterDTO.RecordsPerPage, moviesFilterDTO.Page).ToListAsync();
-            return _mapper.Map<List<MovieDTO>>(movies);
+            return await Get<Movie, MovieDTO>(
+                queryable,
+                new PaginationDTO()
+                {
+                    RecordsPerPage = moviesFilterDTO.RecordsPerPage,
+                    Page = moviesFilterDTO.Page
+                }
+            );
         }
 
         [HttpGet("{id:int}", Name = "getMovie")]

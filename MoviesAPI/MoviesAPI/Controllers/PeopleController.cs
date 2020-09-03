@@ -15,14 +15,14 @@ namespace MoviesAPI.Controllers
 {
     [ApiController]
     [Route("api/people")]
-    public class PeopleController : ControllerBase
+    public class PeopleController : CustomBaseController
     {
         private readonly ApplicationDBContext _context;
         private readonly IMapper _mapper;
         private readonly ILogger<PeopleController> _logger;
         private readonly IFileStorageService _fileStorageService;
 
-        public PeopleController(ApplicationDBContext context, IMapper mapper, ILogger<PeopleController> logger, IFileStorageService fileStorageService)
+        public PeopleController(ApplicationDBContext context, IMapper mapper, ILogger<PeopleController> logger, IFileStorageService fileStorageService) : base(context, mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -33,11 +33,7 @@ namespace MoviesAPI.Controllers
         [HttpGet(Name = "GetPeople")]
         public async Task<ActionResult<List<PersonDTO>>> Get([FromQuery] PaginationDTO paginationDTO)
         {
-            var queryable = _context.Person.AsQueryable();
-            await HttpContext.InsertPaginationParametersInResponse(queryable, paginationDTO.RecordsPerPage, paginationDTO.Page);
-
-            var people = await queryable.Paginate(paginationDTO.RecordsPerPage, paginationDTO.Page).ToListAsync();
-            return _mapper.Map<List<PersonDTO>>(people);
+            return await Get<Person, PersonDTO>(paginationDTO: paginationDTO);
         }
 
         [HttpGet("{id:int}", Name = "getPerson")]
@@ -109,14 +105,7 @@ namespace MoviesAPI.Controllers
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var exists = await _context.Person.AnyAsync(x => x.Id == id);
-            if (!exists)
-            {
-                return NotFound();
-            }
-            _context.Remove(new Person() { Id = id });
-            await _context.SaveChangesAsync();
-            return NoContent();
+            return await Delete<Person>(id);
         }
 
         [HttpPatch("{id:int}")]
