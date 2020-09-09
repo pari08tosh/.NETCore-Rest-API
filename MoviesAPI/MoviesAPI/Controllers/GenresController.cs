@@ -21,18 +21,16 @@ namespace MoviesAPI.Controllers
     {
         private readonly IMapper _mapper;
         private readonly ApplicationDBContext _context;
-        private readonly ILogger<GenresController> _logger;
 
-        public GenresController(ILogger<GenresController> logger, ApplicationDBContext context, IMapper mapper) : base(context, mapper)
+        public GenresController(ApplicationDBContext context, IMapper mapper) : base(context, mapper)
         {
             _mapper = mapper;
             _context = context;
-            _logger = logger;
         }
 
         [HttpGet(Name = "GetGenres")]
         [ServiceFilter(typeof(GenreHATEOASAttribute))]
-        public async Task<List<GenreDTO>> Get()
+        public async Task<ActionResult<List<GenreDTO>>> Get()
         {
             return await Get<Genre, GenreDTO>();
         }
@@ -57,6 +55,7 @@ namespace MoviesAPI.Controllers
         }
 
         [HttpDelete("{id:Int}", Name = "DeleteGenre")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> Delete(int id)
         {
             return await Delete<Genre>(id);

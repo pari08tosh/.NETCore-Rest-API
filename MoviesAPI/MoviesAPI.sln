@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30104.148
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesAPI", "MoviesAPI\MoviesAPI.csproj", "{D3939222-DA2A-4A92-B72D-13C3660A0DD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoviesAPI", "MoviesAPI\MoviesAPI.csproj", "{D3939222-DA2A-4A92-B72D-13C3660A0DD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesAPI.Tests", "MoviesAPI.Tests\MoviesAPI.Tests.csproj", "{63D31DDF-ABE9-46A1-999A-33F48F9D649D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,9 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D3939222-DA2A-4A92-B72D-13C3660A0DD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -30,5 +29,23 @@ Global
 		{D3939222-DA2A-4A92-B72D-13C3660A0DD5}.Release|x64.Build.0 = Release|Any CPU
 		{D3939222-DA2A-4A92-B72D-13C3660A0DD5}.Release|x86.ActiveCfg = Release|Any CPU
 		{D3939222-DA2A-4A92-B72D-13C3660A0DD5}.Release|x86.Build.0 = Release|Any CPU
+		{63D31DDF-ABE9-46A1-999A-33F48F9D649D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63D31DDF-ABE9-46A1-999A-33F48F9D649D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63D31DDF-ABE9-46A1-999A-33F48F9D649D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{63D31DDF-ABE9-46A1-999A-33F48F9D649D}.Debug|x64.Build.0 = Debug|Any CPU
+		{63D31DDF-ABE9-46A1-999A-33F48F9D649D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{63D31DDF-ABE9-46A1-999A-33F48F9D649D}.Debug|x86.Build.0 = Debug|Any CPU
+		{63D31DDF-ABE9-46A1-999A-33F48F9D649D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63D31DDF-ABE9-46A1-999A-33F48F9D649D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63D31DDF-ABE9-46A1-999A-33F48F9D649D}.Release|x64.ActiveCfg = Release|Any CPU
+		{63D31DDF-ABE9-46A1-999A-33F48F9D649D}.Release|x64.Build.0 = Release|Any CPU
+		{63D31DDF-ABE9-46A1-999A-33F48F9D649D}.Release|x86.ActiveCfg = Release|Any CPU
+		{63D31DDF-ABE9-46A1-999A-33F48F9D649D}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4B3594A1-443D-4326-8935-9BC611E680A9}
 	EndGlobalSection
 EndGlobal

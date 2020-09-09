@@ -70,10 +70,6 @@ namespace MoviesAPI.Controllers
 
         public async Task<ActionResult> Put<TCreateDTO, TEntity, TDTO>(int id, TCreateDTO createDTO) where TEntity : class
         {
-            var entity = _mapper.Map<TEntity>(createDTO);
-
-            typeof(TEntity).GetProperty("Id").SetValue(entity, id);
-
             var entityDB = await _context.Set<TEntity>().FindAsync(id);
 
             if (entityDB == null)
@@ -81,7 +77,7 @@ namespace MoviesAPI.Controllers
                 return NotFound();
             }
 
-            _context.Entry(entity).State = EntityState.Modified;
+            entityDB = _mapper.Map(createDTO, entityDB);
             await _context.SaveChangesAsync();
 
             return NoContent();

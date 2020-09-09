@@ -19,14 +19,12 @@ namespace MoviesAPI.Controllers
     {
         private readonly ApplicationDBContext _context;
         private readonly IMapper _mapper;
-        private readonly ILogger<PeopleController> _logger;
         private readonly IFileStorageService _fileStorageService;
 
-        public PeopleController(ApplicationDBContext context, IMapper mapper, ILogger<PeopleController> logger, IFileStorageService fileStorageService) : base(context, mapper)
+        public PeopleController(ApplicationDBContext context, IMapper mapper, IFileStorageService fileStorageService) : base(context, mapper)
         {
             _context = context;
             _mapper = mapper;
-            _logger = logger;
             _fileStorageService = fileStorageService;
         }
 
